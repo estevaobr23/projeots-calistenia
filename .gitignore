@@ -1,0 +1,14 @@
+# dependências e build
+node_modules/
+dist/
+.vercel/
+
+# fontes pesadas e material interno: NÃO sobem (a página usa só o que está em public/)
+/assets/
+/tmp/
+/scripts/
+/*.md
+/.claude/
+*.log
+.env*
+!/README.md
