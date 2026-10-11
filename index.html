@@ -241,19 +241,20 @@ body.rascunho .pend-box{ outline:2px dashed #e0b400; outline-offset:4px; }
     radial-gradient(620px 420px at 92% 88%,rgba(29,78,216,.26),transparent 62%),
     radial-gradient(520px 380px at 0% 82%,rgba(255,107,26,.2),transparent 64%),
     var(--grid-white), linear-gradient(180deg,#152a52,#0a1428); }
-.hero-stack{ display:flex; flex-direction:column; align-items:center; text-align:center; max-width:960px; margin:0 auto; }
-.hero h1{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.62rem,5vw,3.05rem);
-  line-height:1.32; color:#fff; letter-spacing:-.03em; text-wrap:pretty; }
+.hero-stack{ display:flex; flex-direction:column; align-items:center; text-align:center; max-width:1120px; margin:0 auto; }
+.hero h1{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.9rem,4.8vw,2.9rem);
+  line-height:1.28; color:#fff; letter-spacing:-.03em; text-wrap:balance; max-width:1080px; }
+@media (max-width:700px){ .hero h1{ width:calc(100% + 14px); font-size:clamp(1.3rem,6vw,1.65rem); } }
 .hero h1 .hl-block{ background:linear-gradient(135deg,var(--buy),var(--buy-dark)); color:#fff; padding:.04em .3em;
   border-radius:8px; white-space:nowrap; -webkit-box-decoration-break:clone; box-decoration-break:clone;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.22); }
-.hero h1 .br-d{ display:none; }
-@media (min-width:900px){ .hero h1 .br-d{ display:inline; } }
-.hero p.sub{ margin-top:22px; font-weight:400; font-size:1.08rem; line-height:1.62; color:#fff; max-width:700px; }
+.hero p.sub{ margin-top:18px; font-weight:400; font-size:1.12rem; line-height:1.55; color:#fff; max-width:660px; text-wrap:balance; }
 .hero p.sub b{ font-weight:700; }
+@media (max-width:700px){ .hero p.sub{ font-size:clamp(.95rem,4.2vw,1.06rem); } }
 
 /* visual do hero: biblioteca digital → produto físico */
-.hero-visual{ position:relative; width:100%; max-width:860px; aspect-ratio:16/10.4; margin:38px auto 0; }
+.hero-visual{ position:relative; width:100%; max-width:1000px; aspect-ratio:3/2; margin:24px auto 0; }
+@media (max-width:700px){ .hero-visual{ width:calc(100% + 36px); max-width:none; margin:10px -18px 0; } }
 .hero-visual > .offer-mockup-img{ width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 34px 38px rgba(0,0,0,.34)); }
 .hv-glow{ position:absolute; inset:8% 6%; background:radial-gradient(circle,rgba(56,170,255,.45),transparent 66%); filter:blur(46px); opacity:.7; }
 .hv-tablet{ position:absolute; left:0; top:0; width:68%; aspect-ratio:4/3; background:#0b0f18; border-radius:22px;
@@ -280,7 +281,7 @@ body.rascunho .pend-box{ outline:2px dashed #e0b400; outline-offset:4px; }
 .hv-product .lbl b{ font:800 clamp(.5rem,1.4vw,.82rem)/1.2 var(--font-num); color:var(--text-dark); text-align:left; }
 .hv-product .lbl span{ font:800 clamp(.42rem,1.1vw,.66rem) var(--font-num); color:#fff; background:var(--coral-dark); padding:4px 8px; border-radius:99px; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; }
 .hv-arrow{ position:absolute; left:52%; top:58%; width:16%; color:var(--coral-light); filter:drop-shadow(0 4px 10px rgba(0,0,0,.4)); }
-.hero-trust{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:40px; }
+.hero-trust{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:26px; }
 .hero-trust span{ display:inline-flex; align-items:center; gap:.45em; font-family:var(--font-num); font-weight:700; font-size:.82rem;
   white-space:nowrap; color:#eaf4ff; background:rgba(255,255,255,.09); border:1px solid rgba(140,200,255,.3); padding:9px 15px; border-radius:10px; }
 .hero-delivery{ font-size:.94rem; font-weight:600; line-height:1.8; color:#e6f1ff; text-align:center; max-width:420px; margin:20px auto 0; }
@@ -288,9 +289,9 @@ body.rascunho .pend-box{ outline:2px dashed #e0b400; outline-offset:4px; }
 .hero-delivery .nowrap{ white-space:nowrap; }
 .hero-delivery-ic{ display:inline-block; width:20px; height:20px; vertical-align:-5px; margin-right:3px; }
 .hero-cta{ margin-top:18px; }
-.hero-facts{ margin-top:22px; display:flex; flex-wrap:wrap; justify-content:center; gap:6px 18px;
-  font-family:var(--font-num); font-weight:600; font-size:.84rem; color:rgba(234,244,255,.78); }
-.hero-facts b{ color:var(--gold-light); font-weight:800; }
+.hero-apoio{ margin:20px auto 0; font-family:var(--font-num); font-size:.98rem; line-height:1.4; font-weight:800; letter-spacing:.02em;
+  text-transform:uppercase; color:var(--gold-light); text-wrap:balance; }
+@media (max-width:700px){ .hero-apoio{ font-size:.86rem; } }
 
 /* ============ 2. VITRINE — famílias de produtos ============ */
 .vitrine{ background:
@@ -300,9 +301,9 @@ body.rascunho .pend-box{ outline:2px dashed #e0b400; outline-offset:4px; }
 .desire-card{ background:#fff; border:1px solid var(--border); box-shadow:var(--shadow-subtle);
   border-radius:var(--radius-md); padding:0 0 24px; transition:var(--transition); position:relative; overflow:hidden; }
 .desire-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-medium); }
-.desire-card .card-art{ position:relative; aspect-ratio:4/3; background:radial-gradient(circle at 50% 75%,#fff,#eef3fb 75%);
+.desire-card .card-art{ position:relative; aspect-ratio:4/5; background:#fff;
   border-bottom:1px solid var(--border); display:flex; overflow:hidden; }
-.desire-card .card-art img{ width:100%; height:100%; object-fit:cover; transition:transform .65s cubic-bezier(.2,.7,.3,1); }
+.desire-card .card-art img{ width:100%; height:100%; object-fit:contain; transition:transform .65s cubic-bezier(.2,.7,.3,1); }
 .desire-card:hover .card-art img{ transform:scale(1.035); }
 .desire-card .card-body{ padding:20px 24px 0; }
 .desire-card .verse{ font-family:var(--font-num); font-weight:800; font-size:.72rem; color:#fff; background:var(--coral-dark);
@@ -610,6 +611,8 @@ footer .copy{ font-size:.82rem; margin-top:18px; }
 .grid-desire .desire-card.reveal:nth-child(3n), .compare-col.good.reveal{ transform:translateX(42px); }
 .plan.vip.reveal{ transform:translateY(28px) scale(.94); }
 .reveal.in, .grid-desire .desire-card.reveal.in, .compare-col.reveal.in, .plan.reveal.in{ opacity:1; transform:none; }
+/* cards entram deslocados ±42px: sem isso eles alargam a página no celular antes de aparecer */
+.vitrine, .compare{ overflow-x:clip; }
 .delay-1{ transition-delay:.12s; } .delay-2{ transition-delay:.24s; } .delay-3{ transition-delay:.36s; }
 
 /* ============ RESPONSIVO ============ */
@@ -632,7 +635,6 @@ footer .copy{ font-size:.82rem; margin-top:18px; }
   .grid-bonus{ max-width:420px; margin-inline:auto; gap:24px; }
   .grid-bonus .bonus-card{ flex-basis:100%; }
   .desire-strip{ padding:30px 22px; }
-  .hero-visual{ aspect-ratio:16/12.5; }
   .hv-tablet{ width:80%; }
   .hv-product{ width:50%; }
   .hv-arrow{ display:none; }
@@ -656,7 +658,6 @@ footer .copy{ font-size:.82rem; margin-top:18px; }
   .plan{ padding:30px 20px; }
   .plan.vip{ padding-top:44px; }
   .guarantee-box{ padding:34px 22px; }
-  .hero-visual{ aspect-ratio:16/14; }
   .hv-tablet{ width:88%; }
   .hv-product{ width:54%; }
 }
@@ -747,9 +748,9 @@ footer .copy{ font-size:.82rem; margin-top:18px; }
 <header class="hero">
   <div class="container">
     <div class="hero-stack">
-      <h1 class="reveal in"><span class="hl-block">60 Projetos</span> de Equipamentos<br class="br-d"> de Calistenia para Fabricar e Vender</h1>
+      <h1 class="reveal in">Tenha Acesso a <span class="hl-block">60 Projetos</span> de Equipamentos de Calistenia para Fabricar, Orçar e Vender na Sua Serralheria</h1>
 
-      <p class="sub reveal in delay-1">Você já tem as ferramentas e sabe soldar. Agora conheça uma <b>linha de equipamentos metálicos</b> para estudar, <b>orçar</b> e oferecer na sua serralheria: barras fixas, paralelas, estações e estruturas para áreas de treino.</p>
+      <p class="sub reveal in delay-1">Uma <b>nova linha de produtos metálicos</b> para estudar, <b>calcular os custos de fabricação</b> e oferecer a academias, estúdios e clientes particulares.</p>
 
       <!-- MOCKUP PRINCIPAL DA OFERTA -->
       <div class="hero-visual reveal in delay-1">
@@ -774,10 +775,8 @@ footer .copy{ font-size:.82rem; margin-top:18px; }
         <a href="#comprar" class="btn btn-buy btn-lg">Quero acessar os 60 projetos <span class="arrow">➔</span></a>
       </div>
 
-      <!-- Sem prova social numérica: não há base real de clientes ainda. Fatos do produto no lugar. -->
-      <div class="hero-facts reveal in delay-3">
-        <span><b>60</b> projetos</span><span><b>6</b> famílias de equipamentos</span><span><b>1</b> nova linha de produtos para a oficina</span>
-      </div>
+      <!-- Sem prova social numérica: não há base real de clientes ainda. Texto de apoio com fatos da oferta. -->
+      <p class="hero-apoio reveal in delay-3">Para quem solda, fabrica e vende sob encomenda</p>
     </div>
   </div>
 </header>
@@ -794,7 +793,7 @@ footer .copy{ font-size:.82rem; margin-top:18px; }
 
     <div class="grid-desire">
       <article class="desire-card reveal">
-        <div class="card-art"><img src="assets/categorias/barras-fixas.webp" width="1200" height="900" loading="lazy" decoding="async" alt="Barra fixa metálica instalada em ambiente de treino" /></div>
+        <div class="card-art"><img src="assets/categorias/3d/familia-01-barras-fixas.png" width="1122" height="1402" loading="lazy" decoding="async" alt="Personagem 3D executando barra fixa em equipamento metálico" /></div>
         <div class="card-body">
           <div class="verse">Família 01</div>
           <h3>Barras fixas</h3>
@@ -803,7 +802,7 @@ footer .copy{ font-size:.82rem; margin-top:18px; }
         </div>
       </article>
       <article class="desire-card reveal delay-1">
-        <div class="card-art"><img src="assets/categorias/barras-paralelas.webp" width="1200" height="900" loading="lazy" decoding="async" alt="Conjunto profissional de barras paralelas metálicas" /></div>
+        <div class="card-art"><img src="assets/categorias/3d/familia-02-barras-paralelas.png" width="1122" height="1402" loading="lazy" decoding="async" alt="Personagem 3D executando mergulho em barras paralelas metálicas" /></div>
         <div class="card-body">
           <div class="verse">Família 02</div>
           <h3>Barras paralelas</h3>
@@ -812,7 +811,7 @@ footer .copy{ font-size:.82rem; margin-top:18px; }
         </div>
       </article>
       <article class="desire-card reveal delay-2">
-        <div class="card-art"><img src="assets/categorias/estacoes-calistenia.webp" width="1200" height="900" loading="lazy" decoding="async" alt="Estação multifuncional de calistenia em aço" /></div>
+        <div class="card-art"><img src="assets/categorias/3d/familia-03-estacoes-calistenia.png" width="1122" height="1402" loading="lazy" decoding="async" alt="Personagem 3D utilizando uma estação multifuncional de calistenia" /></div>
         <div class="card-body">
           <div class="verse">Família 03</div>
           <h3>Estações de calistenia</h3>
@@ -821,7 +820,7 @@ footer .copy{ font-size:.82rem; margin-top:18px; }
         </div>
       </article>
       <article class="desire-card reveal">
-        <div class="card-art"><img src="assets/categorias/equipamentos-compactos.webp" width="1200" height="900" loading="lazy" decoding="async" alt="Equipamento compacto de calistenia para ambientes menores" /></div>
+        <div class="card-art"><img src="assets/categorias/3d/familia-04-equipamentos-compactos.png" width="1122" height="1402" loading="lazy" decoding="async" alt="Personagem 3D executando L-sit em barras paralelas compactas" /></div>
         <div class="card-body">
           <div class="verse">Família 04</div>
           <h3>Equipamentos compactos</h3>
@@ -830,7 +829,7 @@ footer .copy{ font-size:.82rem; margin-top:18px; }
         </div>
       </article>
       <article class="desire-card reveal delay-1">
-        <div class="card-art"><img src="assets/categorias/equipamentos-comerciais.webp" width="1200" height="900" loading="lazy" decoding="async" alt="Estrutura comercial multiusuário para academia" /></div>
+        <div class="card-art"><img src="assets/categorias/3d/familia-05-equipamentos-comerciais.png" width="1122" height="1402" loading="lazy" decoding="async" alt="Personagem 3D utilizando uma estação hexagonal comercial de barras" /></div>
         <div class="card-body">
           <div class="verse">Família 05</div>
           <h3>Equipamentos comerciais</h3>
@@ -839,7 +838,7 @@ footer .copy{ font-size:.82rem; margin-top:18px; }
         </div>
       </article>
       <article class="desire-card reveal delay-2">
-        <div class="card-art"><img src="assets/categorias/estacoes-areas-externas.webp" width="1200" height="900" loading="lazy" decoding="async" alt="Estação completa de calistenia instalada em área externa" /></div>
+        <div class="card-art"><img src="assets/categorias/3d/familia-06-estacoes-areas-externas.png" width="1122" height="1402" loading="lazy" decoding="async" alt="Personagem 3D atravessando uma estação completa de calistenia para áreas externas" /></div>
         <div class="card-body">
           <div class="verse">Família 06</div>
           <h3>Estações para áreas externas</h3>
@@ -1220,8 +1219,7 @@ footer .copy{ font-size:.82rem; margin-top:18px; }
 
   /* Preço */
   if(C.preco){
-    each('[data-preco]', function(el){ el.textContent = brl(C.preco); });
-    var parc = document.getElementById('vipParcelas');
+    each('[data-preco]', function(el){ el.textContent = brl(C.preco); });    var parc = document.getElementById('vipParcelas');
     parc.innerHTML = C.parcelas ? 'ou <b>'+C.parcelas.n+'x de '+brl(C.parcelas.valor)+'</b> · ou '+brl(C.preco)+' à vista no PIX' : 'Pagamento único · acesso imediato';
   } else if(!rascunho){
     document.getElementById('vipParcelas').textContent = '';
