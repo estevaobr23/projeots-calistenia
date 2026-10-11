@@ -58,8 +58,25 @@ window.OFERTA = {
     { id:'acabamento',icone:'🎨', nome:'Guia de Acabamentos para Equipamentos',  desc:'Pintura, galvanização e acabamento para a peça sair com cara de produto profissional.',     valor:27, confirmado:true }
   ],
 
-  pixelId: '6acaa48825248722c3c9cf21'                  // UTMify — vazio = não carrega o pixel
+  pixelId: '6acaa48825248722c3c9cf21',                 // UTMify — vazio = não carrega o pixel
+
+  /* RASTREAMENTO — ver seção 7 do script no fim da página.
+     Teste local: abra a página com ?debug_rastreio=1 e veja os eventos no console. */
+  contentsquareId: '',   // ID da tag do Contentsquare (Configurações > Tag) — vazio = não carrega
+  coletor: ''            // URL própria que recebe os eventos (POST JSON) — vazio = não envia
 };
+</script>
+
+<!-- Tag Contentsquare (heatmap, mapa de scroll, replay, cliques de raiva, erros de JS) -->
+<script>
+  (function(){
+    var id = window.OFERTA && window.OFERTA.contentsquareId;
+    window._uxa = window._uxa || [];
+    if(!id) return;
+    var a = document.createElement("script");
+    a.async = true; a.src = "https://t.contentsquare.net/uxa/" + id + ".js";
+    document.head.appendChild(a);
+  })();
 </script>
 
 <!-- Pixel UTMify (só carrega com pixelId preenchido) -->
@@ -294,6 +311,12 @@ body.rascunho .pend-box{ outline:2px dashed #e0b400; outline-offset:4px; }
 .desire-card p{ font-size:.96rem; line-height:1.55; }
 .desire-card .quote{ display:block; margin-top:14px; font-size:.86rem; font-weight:600; color:var(--cota-dark);
   border-left:3px solid var(--cota); padding-left:12px; line-height:1.5; }
+/* mockup do plano completo entre os cards e a faixa azul: transparente, grande, só a sombra do próprio desenho */
+.vitrine-mockup{ width:100%; max-width:1040px; margin:44px auto 0; aspect-ratio:3/2; }
+.vitrine-mockup img{ display:block; width:100%; height:100%; object-fit:contain; background:none; border:0;
+  filter:drop-shadow(0 26px 30px rgba(19,35,63,.22)); }
+.vitrine-mockup + .desire-strip{ margin-top:18px; }
+@media (max-width:700px){ .vitrine-mockup{ width:calc(100% + 24px); max-width:none; margin:36px -12px 0; } }
 .desire-strip{ --scroll:0; margin-top:52px; max-width:760px; margin-inline:auto; text-align:center; position:relative; isolation:isolate;
   border-radius:var(--radius-lg); padding:38px 40px; color:#fff; border:1px solid rgba(19,35,63,.45); box-shadow:var(--shadow-large); overflow:hidden;
   background:radial-gradient(520px 260px at 100% 0%,rgba(103,212,255,.36),transparent 68%), linear-gradient(145deg,#2357c6,#1b3fa8); }
@@ -367,25 +390,6 @@ body.rascunho .pend-box{ outline:2px dashed #e0b400; outline-offset:4px; }
 .good li .ic{ background:var(--buy-dark); border:2px solid #fff; color:#fff; box-shadow:0 2px 10px rgba(3,80,30,.45); }
 .good li b{ color:var(--mint); font-weight:700; text-decoration:underline; text-decoration-color:rgba(135,240,167,.5);
   text-decoration-thickness:2px; text-underline-offset:3px; }
-
-/* ============ 3b. MERCADO — para quem oferecer ============ */
-.mercado{ background:
-  radial-gradient(600px 340px at 0% 0%,rgba(255,107,26,.1),transparent 68%),
-  radial-gradient(560px 320px at 100% 100%,rgba(14,165,233,.12),transparent 68%), linear-gradient(180deg,#f6f9ff,#eef3ff); }
-.grid-mercado{ display:flex; flex-direction:column; gap:26px; max-width:860px; margin:0 auto; }
-.mk-card{ background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden;
-  box-shadow:var(--shadow-medium); transition:var(--transition); display:flex; flex-direction:column; }
-.mk-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-large); }
-.mk-art{ position:relative; aspect-ratio:16/7; min-height:150px; display:flex; align-items:center; justify-content:center; overflow:hidden;
-  background:var(--grid), radial-gradient(circle at 50% 80%,#fff,#e9effa 72%); border-bottom:1px solid var(--border); }
-.mk-art .eq{ position:relative; width:auto; height:84%; max-width:56%; }
-.mk-art img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-.mk-body{ padding:22px 28px 24px; }
-.mk-card h3{ font-weight:800; font-size:1.25rem; color:var(--text-dark); line-height:1.3; margin-bottom:6px; letter-spacing:-.01em; }
-.mk-card p{ font-size:.95rem; line-height:1.55; }
-.mk-fit{ margin-top:14px; padding-top:12px; border-top:1px dashed var(--linen-deep); font-size:.8rem; font-weight:700; color:var(--cota-dark); line-height:1.4; }
-.mk-fit::before{ content:"Combina com: "; color:var(--text-muted); font-weight:600; }
-.mercado-note{ text-align:center; margin:30px auto 0; max-width:640px; font-size:.88rem; color:var(--text-muted); font-style:italic; }
 
 /* ============ 4. VEJA POR DENTRO ============ */
 .inside{ background:
@@ -592,11 +596,11 @@ footer .copy{ font-size:.82rem; margin-top:18px; }
 .downsell-modal .refuse{ display:block; margin-top:14px; font-size:.84rem; color:var(--text-muted); text-decoration:underline; }
 
 /* ============ GRÃO ============ */
-.hero,.bonus,.offer,.final,footer,.vitrine,.inside,.mercado,.compare,.money,.guarantee,.faq,.mid-cta,.plan{ position:relative; isolation:isolate; }
-.hero::before,.bonus::before,.offer::before,.final::before,footer::before,.vitrine::before,.inside::before,.mercado::before,
+.hero,.bonus,.offer,.final,footer,.vitrine,.inside,.compare,.money,.guarantee,.faq,.mid-cta,.plan{ position:relative; isolation:isolate; }
+.hero::before,.bonus::before,.offer::before,.final::before,footer::before,.vitrine::before,.inside::before,
 .compare::before,.money::before,.guarantee::before,.faq::before,.mid-cta::before{
   content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; border-radius:inherit; background-image:var(--grain); background-size:220px 220px; }
-.vitrine::before,.inside::before,.mercado::before,.compare::before,.money::before,.guarantee::before,.faq::before{ opacity:.06; mix-blend-mode:multiply; }
+.vitrine::before,.inside::before,.compare::before,.money::before,.guarantee::before,.faq::before{ opacity:.06; mix-blend-mode:multiply; }
 .hero::before,.bonus::before,.offer::before,.final::before,footer::before,.mid-cta::before{ opacity:.4; mix-blend-mode:soft-light; }
 .hero::before{ opacity:.5; }
 
@@ -649,8 +653,6 @@ footer .copy{ font-size:.82rem; margin-top:18px; }
   .pj-head h3{ font-size:1.15rem; }
   .pj-stats{ grid-template-columns:1fr 1fr; gap:12px 6px; }
   .pj-info div{ padding:14px 14px 16px; }
-  .mk-body{ padding:18px 18px 20px; }
-  .mk-art{ aspect-ratio:16/9; }
   .plan{ padding:30px 20px; }
   .plan.vip{ padding-top:44px; }
   .guarantee-box{ padding:34px 22px; }
@@ -846,58 +848,16 @@ footer .copy{ font-size:.82rem; margin-top:18px; }
         </div>
       </article>
     </div>
-    
+
+    <!-- MOCKUP DO PLANO COMPLETO — PNG com fundo transparente, sem caixa nem cartão por trás -->
+    <div class="vitrine-mockup reveal">
+      <img src="assets/mockups/mockup-hero-oferta.png" alt="Biblioteca completa com os 60 projetos de equipamentos de calistenia: notebook, celular e fichas dos equipamentos" width="1536" height="1024" loading="lazy" decoding="async" />
+    </div>
+
     <div class="desire-strip reveal">
       <span class="ds-icon">✦ ✦ ✦</span>
       <p class="ds-text">Você já sabe trabalhar com metal. Agora tenha <strong>60 modelos</strong> para <span class="ds-underline">colocar no catálogo da sua oficina</span>.</p>
     </div>
-  </div>
-</section>
-
-<!-- ================= 3. PARA QUEM É — compradores ================= -->
-<section class="mercado" id="clientes">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">Onde estão os possíveis compradores</span>
-      <h2>Para quem você poderia <span class="hl">oferecer esses equipamentos?</span></h2>
-      <div class="rule"></div>
-      <p>Diferentes clientes, diferentes peças. Use como mapa para pesquisar a procura na sua região.</p>
-    </div>
-    <div class="grid-mercado">
-      <article class="mk-card reveal">
-        <div class="mk-art"><img src="assets/clientes/academias-em-casa.webp" width="1600" height="700" loading="lazy" decoding="async" alt="Pessoa treinando em uma academia montada em casa" /></div>
-        <div class="mk-body"><h3>Academias em casa</h3><p>Quem está montando um espaço de treino na garagem, varanda ou quintal.</p><div class="mk-fit">compactos, barras de parede</div></div>
-      </article>
-      <article class="mk-card reveal">
-        <div class="mk-art"><img src="assets/clientes/praticantes-de-calistenia.webp" width="1600" height="700" loading="lazy" decoding="async" alt="Praticante de calistenia treinando em barras paralelas" /></div>
-        <div class="mk-body"><h3>Praticantes de calistenia</h3><p>Quem treina com o peso do corpo e procura equipamento específico.</p><div class="mk-fit">paralelas, paralelas baixas</div></div>
-      </article>
-      <article class="mk-card reveal">
-        <div class="mk-art"><img src="assets/clientes/personal-trainers.webp" width="1600" height="700" loading="lazy" decoding="async" alt="Personal trainer orientando exercício em equipamento de calistenia" /></div>
-        <div class="mk-body"><h3>Personal trainers</h3><p>Profissionais que atendem em casa, em estúdio ou ao ar livre.</p><div class="mk-fit">paralelas baixas, barras fixas</div></div>
-      </article>
-      <article class="mk-card reveal">
-        <div class="mk-art"><img src="assets/clientes/estudios-de-funcional.webp" width="1600" height="700" loading="lazy" decoding="async" alt="Treino em grupo dentro de um estúdio funcional" /></div>
-        <div class="mk-body"><h3>Estúdios de funcional</h3><p>Espaços que precisam de estrutura para treinos em grupo.</p><div class="mk-fit">estações, equipamentos comerciais</div></div>
-      </article>
-      <article class="mk-card reveal">
-        <div class="mk-art"><img src="assets/clientes/academias.webp" width="1600" height="700" loading="lazy" decoding="async" alt="Atleta utilizando equipamento de calistenia em academia" /></div>
-        <div class="mk-body"><h3>Academias</h3><p>Áreas de peso corporal e funcional dentro da academia.</p><div class="mk-fit">estações, equipamentos comerciais</div></div>
-      </article>
-      <article class="mk-card reveal">
-        <div class="mk-art"><img src="assets/clientes/centros-de-treinamento.webp" width="1600" height="700" loading="lazy" decoding="async" alt="Alunos utilizando equipamentos em um centro de treinamento" /></div>
-        <div class="mk-body"><h3>Centros de treinamento</h3><p>Espaços com uso intenso e vários alunos ao mesmo tempo.</p><div class="mk-fit">equipamentos comerciais</div></div>
-      </article>
-      <article class="mk-card reveal">
-        <div class="mk-art"><img src="assets/clientes/condominios.webp" width="1600" height="700" loading="lazy" decoding="async" alt="Moradores treinando em estação de calistenia de condomínio" /></div>
-        <div class="mk-body"><h3>Condomínios</h3><p>Áreas comuns de lazer e espaços de treino ao ar livre.</p><div class="mk-fit">áreas externas, barras fixas</div></div>
-      </article>
-      <article class="mk-card reveal">
-        <div class="mk-art"><img src="assets/clientes/clubes-e-espacos-esportivos.webp" width="1600" height="700" loading="lazy" decoding="async" alt="Pessoas treinando em equipamento instalado em clube esportivo" /></div>
-        <div class="mk-body"><h3>Clubes e espaços esportivos</h3><p>Circuitos e conjuntos para quem treina em área aberta.</p><div class="mk-fit">áreas externas, estações</div></div>
-      </article>
-    </div>
-    <p class="mercado-note reveal">São possibilidades de cliente, não garantia de procura: vale pesquisar a demanda na sua cidade antes de investir.</p>
   </div>
 </section>
 
@@ -1558,6 +1518,273 @@ footer .copy{ font-size:.82rem; margin-top:18px; }
     if(e.key === 'Escape') fecharLb(); else if(e.key === 'ArrowRight') ir(atual + 1); else if(e.key === 'ArrowLeft') ir(atual - 1);
   });
   ir(0);
+})();
+
+/* ===== 7. RASTREAMENTO — funil por seção, scroll, tempo, cliques, erros e performance =====
+   Cada evento vai para: dataLayer (GTM/GA4), Contentsquare (_uxa), fbq/gtag se existirem na página
+   e, se OFERTA.coletor estiver preenchido, para o seu endpoint. Consulta rápida no console:
+   window.__rastreio (lista de eventos) e ?debug_rastreio=1 (imprime cada evento). */
+(function(){
+  var C = window.OFERTA || {};
+  var DEBUG = /[?&]debug_rastreio=1/.test(location.search);
+  var T0 = Date.now();
+  var fila = [], LOG = (window.__rastreio = []), uma = {};
+  window.dataLayer = window.dataLayer || [];
+  window._uxa = window._uxa || [];
+
+  function arm(tipo, k, v){ try { var s = window[tipo]; if(v === undefined) return s.getItem(k); s.setItem(k, v); } catch(e){} return null; }
+  function rid(){
+    try { var a = new Uint32Array(3); crypto.getRandomValues(a); return Array.prototype.map.call(a, function(n){ return n.toString(36); }).join(''); }
+    catch(e){ return Math.random().toString(36).slice(2) + Date.now().toString(36); }
+  }
+  var vid = arm('localStorage', 'rst_vid'), recorrente = !!vid;
+  if(!vid){ vid = rid(); arm('localStorage', 'rst_vid', vid); }
+  var sid = arm('sessionStorage', 'rst_sid');
+  if(!sid){ sid = rid(); arm('sessionStorage', 'rst_sid', sid); }
+
+  /* ---------- núcleo ---------- */
+  var secaoAtual = 'hero';
+  var STD = { oferta_vista: 'ViewContent', checkout_clique: 'InitiateCheckout' };
+  function variavel(k, v){ window._uxa.push(['trackDynamicVariable', { key: k, value: String(v) }]); }
+  function rastrear(nome, dados, opt){
+    opt = opt || {};
+    if(opt.uma){ if(uma[nome + (opt.cs || '')]) return; uma[nome + (opt.cs || '')] = 1; }
+    var ev = { event: nome, t_ms: Date.now() - T0, secao_atual: secaoAtual };
+    for(var k in (dados || {})) ev[k] = dados[k];
+    window.dataLayer.push(ev);
+    window._uxa.push(['trackPageEvent', opt.cs || nome]);
+    try { if(window.fbq) { if(STD[nome]) window.fbq('track', STD[nome], dados || {}); else window.fbq('trackCustom', nome, dados || {}); } } catch(e){}
+    try { if(window.gtag) window.gtag('event', nome, dados || {}); } catch(e){}
+    LOG.push(ev);
+    if(C.coletor) fila.push(ev);
+    if(DEBUG && window.console) console.log('[rastreio]', nome, ev);
+  }
+  window.rastrear = rastrear;
+
+  function enviar(){
+    if(!C.coletor || !fila.length) return;
+    var corpo = JSON.stringify({ vid: vid, sid: sid, pagina: location.pathname, ua: navigator.userAgent, eventos: fila.splice(0, fila.length) });
+    try { if(navigator.sendBeacon && navigator.sendBeacon(C.coletor, new Blob([corpo], { type: 'text/plain' }))) return; } catch(e){}
+    try { fetch(C.coletor, { method: 'POST', body: corpo, keepalive: true, mode: 'no-cors', headers: { 'Content-Type': 'text/plain' } }); } catch(e){}
+  }
+  setInterval(enviar, 10000);
+
+  function desc(el){
+    var d = el.tagName.toLowerCase();
+    if(el.id) d += '#' + el.id; else if(typeof el.className === 'string' && el.className.trim()) d += '.' + el.className.trim().split(/\s+/)[0];
+    var tx = (el.textContent || el.alt || '').replace(/\s+/g, ' ').trim().slice(0, 40);
+    return tx ? d + ' "' + tx + '"' : d;
+  }
+
+  /* ---------- 1. contexto da visita ---------- */
+  var q = new URLSearchParams(location.search), utm = {};
+  ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k){ if(q.get(k)) utm[k] = q.get(k); });
+  if(!Object.keys(utm).length){ try { var g = JSON.parse(arm('sessionStorage', 'rastreio_60_projetos_calistenia')) || {}; Object.keys(g).forEach(function(k){ if(/^utm_/.test(k)) utm[k] = g[k]; }); } catch(e){} }
+  var refHost = ''; try { refHost = document.referrer ? new URL(document.referrer).hostname : ''; } catch(e){}
+  var mobile = window.matchMedia && window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
+  var conn = navigator.connection || {};
+  var h = new Date().getHours();
+  variavel('fonte', utm.utm_source || refHost || 'direto');
+  variavel('campanha', utm.utm_campaign || 'nenhuma');
+  variavel('criativo', utm.utm_content || 'nenhum');
+  variavel('dispositivo', mobile ? 'mobile' : 'desktop');
+  variavel('visitante', recorrente ? 'recorrente' : 'novo');
+  variavel('rede', conn.effectiveType || 'desconhecida');
+  variavel('faixa_horaria', h < 6 ? 'madrugada' : h < 12 ? 'manha' : h < 18 ? 'tarde' : 'noite');
+  rastrear('pagina_carregada', {
+    pagina: location.pathname, referrer: refHost || 'direto', utm_source: utm.utm_source, utm_medium: utm.utm_medium,
+    utm_campaign: utm.utm_campaign, utm_content: utm.utm_content, utm_term: utm.utm_term,
+    viewport: innerWidth + 'x' + innerHeight, tela: screen.width + 'x' + screen.height, dpr: window.devicePixelRatio || 1,
+    dispositivo: mobile ? 'mobile' : 'desktop', idioma: navigator.language, rede: conn.effectiveType || null, economia_dados: !!conn.saveData,
+    visitante: recorrente ? 'recorrente' : 'novo', hora_local: h
+  }, { uma: true });
+
+  /* ---------- 2. funil por seção (onde o visitante chega e quanto tempo fica) ---------- */
+  var MAPA = [['hero','header.hero'],['oportunidade','#oportunidade'],['comparativo','#comparativo'],
+    ['por_dentro','#por-dentro'],['projeto','#projeto'],['bonus','#bonus'],['oferta','#comprar'],['garantia','#garantia'],
+    ['faq','#faq'],['cta_final','section.final'],['rodape','footer']];
+  var SECS = [], maxOrdem = -1, segTotal = 0;
+  MAPA.forEach(function(m, i){ var el = document.querySelector(m[1]); if(el) SECS.push({ nome: m[0], el: el, ordem: i, dentro: false, seg: 0, visto: false }); });
+  function secaoVista(s){
+    if(s.visto) return; s.visto = true;
+    rastrear('secao_vista', { secao: s.nome, ordem: s.ordem + 1, apos_s: Math.round((Date.now() - T0) / 1000) }, { cs: 'secao_vista_' + s.nome });
+    if(s.ordem > maxOrdem){ maxOrdem = s.ordem; variavel('etapa_maxima', (s.ordem < 9 ? '0' : '') + (s.ordem + 1) + '_' + s.nome); }
+    if(s.nome === 'oferta') rastrear('oferta_vista', { apos_s: Math.round((Date.now() - T0) / 1000), scroll_pct: scrollMax }, { uma: true });
+  }
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        var s = SECS.filter(function(x){ return x.el === e.target; })[0]; if(!s) return;
+        s.dentro = e.isIntersecting;
+        if(e.isIntersecting){ secaoAtual = s.nome; secaoVista(s); }
+      });
+    }, { rootMargin: '-30% 0px -30% 0px', threshold: 0 });
+    SECS.forEach(function(s){ io.observe(s.el); });
+  }
+
+  /* ---------- 3. scroll e tempo ativo ---------- */
+  var scrollMax = 0, marcasScroll = [25, 50, 75, 90, 100], tempoAtivo = 0, marcasTempo = [15, 30, 60, 120, 180], ticking = false;
+  function medirScroll(){
+    ticking = false;
+    var doc = document.documentElement, total = Math.max(doc.scrollHeight, document.body.scrollHeight);
+    var pct = Math.min(100, Math.round((window.pageYOffset + innerHeight) / total * 100));
+    if(pct > scrollMax) scrollMax = pct;
+    marcasScroll.forEach(function(m){ if(pct >= (m === 100 ? 99 : m)) rastrear('scroll_profundidade', { pct: m }, { uma: true, cs: 'scroll_' + m }); });
+    if(pct >= 99) SECS.forEach(function(s){ if(s.el.getBoundingClientRect().top < innerHeight * .9) secaoVista(s); });
+  }
+  window.addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(medirScroll); } }, { passive: true });
+  setInterval(function(){
+    if(document.hidden) return;
+    tempoAtivo++;
+    SECS.forEach(function(s){ if(s.dentro) s.seg++; });
+    if(marcasTempo.indexOf(tempoAtivo) > -1) rastrear('tempo_na_pagina', { segundos: tempoAtivo, scroll_pct: scrollMax }, { uma: true, cs: 'tempo_' + tempoAtivo + 's' });
+  }, 1000);
+  medirScroll();
+
+  /* ---------- 4. cliques: CTAs, checkout, cliques de raiva e cliques sem resposta ---------- */
+  var cliques = 0, ctas = 0, checkouts = 0, raivas = 0, semAcao = 0, ultimos = [], ultimoMotivoFechar = '';
+  var PRECO = { vip: C.preco, basico: C.basico && C.basico.preco, downsell: C.downsell && C.downsell.preco };
+  document.addEventListener('click', function(e){
+    var el = e.target && e.target.closest ? e.target : (e.target && e.target.parentElement); if(!el) return;
+    cliques++;
+    if(el.id === 'fecharDownsell') ultimoMotivoFechar = 'botao_x';
+    else if(el.id === 'downsellOverlay') ultimoMotivoFechar = 'clique_fora';
+
+    var agora = Date.now();
+    ultimos.push({ t: agora, x: e.clientX, y: e.clientY });
+    ultimos = ultimos.filter(function(c){ return agora - c.t < 800 && Math.abs(c.x - e.clientX) < 50 && Math.abs(c.y - e.clientY) < 50; });
+    if(ultimos.length >= 3 && raivas < 10){ raivas++; ultimos = []; rastrear('clique_raiva', { alvo: desc(el), secao: secaoAtual }); }
+
+    var alvo = el.closest('a, button, summary, [data-checkout]');
+    if(!alvo){
+      if(!el.closest('#bookStage, #bookLb, label, input, select, textarea, video') && semAcao < 25){
+        semAcao++; rastrear('clique_sem_acao', { alvo: desc(el), secao: secaoAtual });
+      }
+      return;
+    }
+    var plano = alvo.getAttribute('data-checkout');
+    if(plano){
+      checkouts++;
+      var noModal = !!alvo.closest('#downsellOverlay');
+      rastrear('checkout_clique', {
+        plano: plano, valor: PRECO[plano] || null, moeda: 'BRL', local: noModal ? 'modal_downsell' : 'oferta',
+        via: alvo.id === 'recusarDownsell' ? 'recusou_downsell' : 'botao', apos_s: Math.round((Date.now() - T0) / 1000),
+        scroll_pct: scrollMax, tempo_ativo_s: tempoAtivo
+      }, { cs: 'checkout_' + plano });
+      variavel('clicou_checkout', plano);
+    } else if(alvo.matches('a.btn, button.btn')){
+      ctas++;
+      rastrear('cta_clique', { rotulo: (alvo.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60), secao: secaoAtual, destino: alvo.getAttribute('href') || alvo.id || null },
+        { cs: 'cta_' + secaoAtual });
+    } else if(alvo.tagName === 'A' && alvo.href && alvo.hostname && alvo.hostname !== location.hostname){
+      rastrear('link_externo', { destino: alvo.href, secao: secaoAtual });
+    }
+  }, true);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') ultimoMotivoFechar = 'esc'; });
+
+  /* ---------- 5. FAQ: quais dúvidas as pessoas abrem ---------- */
+  var faqAbertas = 0;
+  document.addEventListener('toggle', function(e){
+    var d = e.target; if(!d || !d.matches || !d.matches('details.faq-item')) return;
+    var lista = Array.prototype.slice.call(document.querySelectorAll('details.faq-item'));
+    var sm = d.querySelector('summary'), pergunta = sm ? sm.textContent.replace(/[+−-]\s*$/, '').trim().slice(0, 80) : '';
+    if(d.open) faqAbertas++;
+    rastrear(d.open ? 'faq_abrir' : 'faq_fechar', { pergunta: pergunta, indice: lista.indexOf(d) + 1 });
+  }, true);
+
+  /* ---------- 6. modal de downsell ---------- */
+  var ov = document.getElementById('downsellOverlay');
+  if(ov && window.MutationObserver){
+    var aberto = false;
+    new MutationObserver(function(){
+      var agora = ov.classList.contains('open'); if(agora === aberto) return; aberto = agora;
+      if(agora){ ultimoMotivoFechar = ''; rastrear('downsell_aberto', { scroll_pct: scrollMax }); }
+      else rastrear('downsell_fechado', { motivo: ultimoMotivoFechar || 'desconhecido' });
+    }).observe(ov, { attributes: true, attributeFilter: ['class'] });
+  }
+
+  /* ---------- 7. livro folheável ---------- */
+  var cont = document.getElementById('bookCount'), pagLivro = 1, pagMax = 1;
+  if(cont && window.MutationObserver){
+    new MutationObserver(function(){
+      var n = parseInt(cont.textContent, 10); if(!n || n === pagLivro) return; pagLivro = n;
+      if(n > pagMax) pagMax = n;
+      rastrear('livro_pagina', { pagina: n }, { cs: 'livro_pagina_' + n });
+    }).observe(cont, { childList: true, characterData: true, subtree: true });
+  }
+  var lb = document.getElementById('bookLb');
+  if(lb && window.MutationObserver){
+    var lbAberto = false;
+    new MutationObserver(function(){
+      var a = lb.classList.contains('aberto'); if(a === lbAberto) return; lbAberto = a;
+      rastrear(a ? 'livro_zoom_aberto' : 'livro_zoom_fechado', { pagina: pagLivro });
+    }).observe(lb, { attributes: true, attributeFilter: ['class'] });
+  }
+
+  /* ---------- 8. performance real do visitante (Core Web Vitals) ---------- */
+  var perf = { lcp: null, cls: 0, inp: null };
+  try { new PerformanceObserver(function(l){ var x = l.getEntries(); perf.lcp = Math.round(x[x.length - 1].startTime); }).observe({ type: 'largest-contentful-paint', buffered: true }); } catch(e){}
+  try { new PerformanceObserver(function(l){ l.getEntries().forEach(function(x){ if(!x.hadRecentInput) perf.cls += x.value; }); }).observe({ type: 'layout-shift', buffered: true }); } catch(e){}
+  try { new PerformanceObserver(function(l){ l.getEntries().forEach(function(x){ if(x.interactionId && x.duration > (perf.inp || 0)) perf.inp = Math.round(x.duration); }); }).observe({ type: 'event', durationThreshold: 40, buffered: true }); } catch(e){}
+  function medidas(){
+    var n = (performance.getEntriesByType && performance.getEntriesByType('navigation')[0]) || {};
+    return { lcp_ms: perf.lcp, cls: Math.round(perf.cls * 1000) / 1000, inp_ms: perf.inp, ttfb_ms: n.responseStart ? Math.round(n.responseStart) : null,
+      dom_ms: n.domContentLoadedEventEnd ? Math.round(n.domContentLoadedEventEnd) : null, load_ms: n.loadEventEnd ? Math.round(n.loadEventEnd) : null };
+  }
+  function relatarPerf(){
+    var m = medidas(); rastrear('performance', m, { uma: true });
+    if(m.lcp_ms != null) variavel('lcp_faixa', m.lcp_ms <= 2500 ? 'bom' : m.lcp_ms <= 4000 ? 'medio' : 'ruim');
+  }
+  if(document.readyState === 'complete') setTimeout(relatarPerf, 3000);
+  else window.addEventListener('load', function(){ setTimeout(relatarPerf, 3000); });
+
+  /* ---------- 9. erros de JavaScript e recursos que falharam ---------- */
+  var erros = 0;
+  window.addEventListener('error', function(e){
+    if(erros >= 10) return; erros++;
+    var t = e.target;
+    if(t && t !== window && (t.src || t.href)) rastrear('erro_recurso', { tag: t.tagName.toLowerCase(), url: String(t.src || t.href).slice(-120) });
+    else rastrear('erro_js', { mensagem: String(e.message || '').slice(0, 150), arquivo: String(e.filename || '').slice(-80), linha: e.lineno || null });
+  }, true);
+  window.addEventListener('unhandledrejection', function(e){
+    if(erros >= 10) return; erros++;
+    rastrear('erro_js', { mensagem: String((e.reason && e.reason.message) || e.reason || 'promise rejeitada').slice(0, 150) });
+  });
+
+  /* ---------- 10. intenção de saída, cópia de texto e resumo da sessão ---------- */
+  if(window.matchMedia && window.matchMedia('(pointer: fine)').matches){
+    document.addEventListener('mouseout', function(e){
+      if(!e.relatedTarget && e.clientY <= 0) rastrear('intencao_saida', { scroll_pct: scrollMax, tempo_ativo_s: tempoAtivo }, { uma: true });
+    });
+  }
+  var copias = 0;
+  document.addEventListener('copy', function(){
+    if(copias++ > 5) return;
+    var s = window.getSelection ? window.getSelection().toString() : '';
+    rastrear('texto_copiado', { tamanho: s.length });
+  });
+
+  var abaOculta = 0, ultimaAssinatura = '';
+  function resumo(motivo){
+    var ass = cliques + '|' + scrollMax + '|' + tempoAtivo + '|' + motivo;
+    if(ass === ultimaAssinatura) return; ultimaAssinatura = ass;
+    var porSecao = {}, vistas = [];
+    SECS.forEach(function(s){ if(s.visto) vistas.push(s.nome); if(s.seg) porSecao[s.nome] = s.seg; });
+    var m = medidas();
+    rastrear('sessao_resumo', {
+      motivo: motivo, tempo_ativo_s: tempoAtivo, tempo_total_s: Math.round((Date.now() - T0) / 1000), scroll_max_pct: scrollMax,
+      secoes_vistas: vistas.join(','), ultima_secao: secaoAtual, etapa_maxima: maxOrdem + 1, tempo_por_secao_s: porSecao,
+      viu_oferta: vistas.indexOf('oferta') > -1, clicou_checkout: checkouts > 0, cliques: cliques, cliques_cta: ctas, cliques_raiva: raivas,
+      cliques_sem_acao: semAcao, faq_abertas: faqAbertas, livro_pagina_max: pagMax, erros: erros, aba_oculta_vezes: abaOculta,
+      lcp_ms: m.lcp_ms, cls: m.cls, inp_ms: m.inp_ms
+    });
+    enviar();
+  }
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden){ abaOculta++; resumo('aba_oculta'); }
+    else rastrear('aba_voltou');
+  });
+  window.addEventListener('pagehide', function(){ resumo('saida'); });
 })();
 </script>
 </body>
